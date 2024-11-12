@@ -1,6 +1,7 @@
 "use client";
 
 import { qaPairs, basicQuestions } from '@/data/question';
+import sitemapKeywords from '@/data/sitemapKeywords'; // Importación de sitemapKeywords
 import { useState, useEffect, useRef } from 'react';
 
 type Resource = {
@@ -56,7 +57,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false); // Estado para controlar visibilidad de sugerencias
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -98,12 +99,30 @@ export default function Chatbot() {
 
     setInput('');
     setSuggestions([]);
-    setShowSuggestions(false); // Ocultar sugerencias después de enviar
+    setShowSuggestions(false);
   };
 
   const getResponse = (question: string) => {
     const normalizedQuestion = normalizeText(question);
-    
+  
+    // Primero buscar coincidencias en sitemapKeywords
+    const matchedSitemap = sitemapKeywords.find(item => 
+      item.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword)))
+    );
+  
+    if (matchedSitemap) {
+      
+      return `
+        <p>Para más información sobre este tema, puedes visitar:</p>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-4 rounded">
+          <a href="${matchedSitemap.url}" target="_blank" class="text-blue-600 underline hover:text-blue-900">
+            ${matchedSitemap.description}
+          </a>
+        </div>
+      `;
+    }
+  
+    // Si no hay coincidencia en sitemapKeywords, buscar en qaPairs
     let bestMatch: QuestionData & { matches: number } = { 
       question: '', 
       keywords: [], 
@@ -113,9 +132,9 @@ export default function Chatbot() {
       examples: [], 
       resources: [] 
     };
-
-    const allQuestions = [...qaPairs, ...basicQuestions];
   
+    const allQuestions = [...qaPairs, ...basicQuestions];
+    
     for (const pair of allQuestions) {
       const matches = pair.keywords.filter(keyword => normalizedQuestion.includes(normalizeText(keyword))).length;
   
@@ -127,20 +146,24 @@ export default function Chatbot() {
     if (bestMatch.matches > 0) {
       if (qaPairs.some(pair => pair.question === bestMatch.question)) {
         setSuggestions(bestMatch.relatedQuestions || qaPairs.map(pair => pair.question));
+        
         return formatResponse(bestMatch);
       } else {
         setSuggestions(qaPairs.map(pair => pair.question));
+        
         return bestMatch.answer;
       }
-    } else {
-      const filteredSuggestions = qaPairs
-        .filter(pair => pair.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword))))
-        .map(pair => pair.question);
-  
-      setSuggestions(filteredSuggestions);
-      return `¿Quizás quisiste preguntar algo de esto? Selecciona una de las opciones.`;
     }
+  
+    // Si no se encuentra coincidencia en qaPairs ni en sitemapKeywords, mostrar sugerencias por defecto
+    const filteredSuggestions = qaPairs
+      .filter(pair => pair.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword))))
+      .map(pair => pair.question);
+  
+    setSuggestions(filteredSuggestions);
+    return `¿Quizás quisiste preguntar algo de esto? Selecciona una de las opciones.`;
   };
+  
 
   const formatResponse = (match: QuestionData) => {
     let response = `<p>${match.answer}</p>`;
@@ -181,7 +204,7 @@ export default function Chatbot() {
   const handleSuggestionClick = (suggestion: string) => {
     setInput('');
     setSuggestions([]);
-    setShowSuggestions(false); // Ocultar sugerencias después de seleccionar una
+    setShowSuggestions(false);
     setMessages((prev: Message[]) => [...prev, { text: suggestion, isBot: false }]);
     const response = getResponse(suggestion);
 
@@ -246,7 +269,7 @@ export default function Chatbot() {
                   .filter(pair => normalizeText(pair.question).includes(normalizedInput))
                   .map(pair => pair.question);
                 setSuggestions(filteredSuggestions);
-                setShowSuggestions(true); // Mostrar sugerencias solo cuando el usuario escribe
+                setShowSuggestions(true);
               }
             }}
             placeholder="Escribe tu pregunta aquí..."
