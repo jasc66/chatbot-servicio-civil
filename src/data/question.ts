@@ -341,5 +341,99 @@ export const qaPairs = [
         resources: [
             { label: "Solicitud de Boleta de Funcionalidad", url: "https://www.dgsc.go.cr/solicitud_boleta.html" }
         ]
+    },
+    
+];
+
+export const basicQuestions = [
+    {
+        question: "Hola",
+        keywords: ["hola", "buenas", "saludo"],
+        answer: "¡Hola! ¿En qué puedo ayudarte hoy?",
+        category: "Saludos",
+        relatedQuestions: ["¿Cómo estás?", "¿Qué tal?"],
+        examples: ["Hola, ¿me puedes ayudar?", "Hola, necesito información"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "Buenos días",
+        keywords: ["buenos días", "buen día", "día"],
+        answer: "¡Buenos días! ¿Cómo puedo asistirte?",
+        category: "Saludos",
+        relatedQuestions: ["Buenas tardes", "Buenas noches"],
+        examples: ["Buenos días, necesito ayuda", "Buen día, ¿me puedes ayudar?"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "Buenas tardes",
+        keywords: ["buenas tardes", "tarde", "buenas"],
+        answer: "¡Buenas tardes! Espero que estés teniendo un buen día. ¿En qué puedo ayudarte?",
+        category: "Saludos",
+        relatedQuestions: ["Buenos días", "Buenas noches"],
+        examples: ["Buenas tardes, necesito información", "Buenas, ¿me puedes ayudar?"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "Buenas noches",
+        keywords: ["buenas noches", "noche", "buenas"],
+        answer: "¡Buenas noches! ¿Hay algo en lo que pueda ayudarte antes de que termine el día?",
+        category: "Saludos",
+        relatedQuestions: ["Buenos días", "Buenas tardes"],
+        examples: ["Buenas noches, tengo una consulta", "Noche, ¿puedes ayudarme?"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "¿Cómo estás?",
+        keywords: ["cómo estás", "qué tal", "cómo te va"],
+        answer: "¡Gracias por preguntar! Estoy aquí para ayudarte en lo que necesites. ¿Cómo puedo asistirte hoy?",
+        category: "Saludos",
+        relatedQuestions: ["Hola", "¿Qué tal?"],
+        examples: ["¿Cómo estás?", "¿Qué tal?"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "¿Me puedes ayudar?",
+        keywords: ["me puedes ayudar", "puedes ayudarme", "ayuda"],
+        answer: "¡Por supuesto! Estoy aquí para ayudarte. ¿En qué tienes dudas?",
+        category: "Ayuda",
+        relatedQuestions: ["¿Qué puedes hacer?", "Necesito ayuda"],
+        examples: ["¿Puedes ayudarme?", "Necesito asistencia"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "¿Qué puedes hacer?",
+        keywords: ["qué puedes hacer", "qué sabes hacer", "funciones"],
+        answer: "Puedo responder tus preguntas sobre nuestros servicios y ayudarte a encontrar la información que necesitas. ¡Dime en qué te gustaría saber más!",
+        category: "Ayuda",
+        relatedQuestions: ["¿Me puedes ayudar?", "¿Qué servicios ofrecen?"],
+        examples: ["¿Qué puedes hacer?", "¿Cuáles son tus funciones?"],
+        tone: "informal",
+        resources: []
+    },
+    {
+        question: "Gracias",
+        keywords: ["gracias", "agradezco", "te agradezco"],
+        answer: "¡De nada! Estoy aquí para ayudarte. Si necesitas algo más, solo avísame.",
+        category: "Cortesía",
+        relatedQuestions: ["Muchas gracias", "Te lo agradezco"],
+        examples: ["Gracias por tu ayuda", "Agradezco tu respuesta"],
+        tone: "formal",
+        resources: []
+    },
+    {
+        question: "Adiós",
+        keywords: ["adiós", "hasta luego", "nos vemos"],
+        answer: "¡Hasta luego! Espero verte pronto. Cuídate.",
+        category: "Despedida",
+        relatedQuestions: ["Nos vemos", "Chao"],
+        examples: ["Adiós", "Hasta luego, gracias"],
+        tone: "informal",
+        resources: []
     }
 ];

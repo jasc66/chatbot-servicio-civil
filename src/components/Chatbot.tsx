@@ -1,6 +1,6 @@
 "use client";
 
-import { qaPairs } from '@/data/question';
+import { qaPairs, basicQuestions } from '@/data/question';
 import { useState, useEffect, useRef } from 'react';
 
 type Resource = {
@@ -28,7 +28,7 @@ const Button = ({ onClick, children }: { onClick: () => void; children: React.Re
   <button
     onClick={onClick}
     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center justify-center"
-    style={{ minWidth: '48px' }} // Asegura un ancho mínimo en dispositivos pequeños
+    style={{ minWidth: '48px' }}
   >
     {children}
   </button>
@@ -45,7 +45,7 @@ const Input = ({ value, onChange, placeholder }: { value: string; onChange: (e: 
 );
 
 const ScrollArea = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex-grow overflow-y-auto p-2 bg-gray-100 rounded shadow" style={{ maxHeight: 'calc(60vh)' }}>
+  <div className="flex-grow overflow-y-auto p-2 bg-gray-100 rounded shadow" style={{ maxHeight: 'calc(55vh)' }}>
     {children}
   </div>
 );
@@ -56,6 +56,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false); // Estado para controlar visibilidad de sugerencias
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -97,6 +98,7 @@ export default function Chatbot() {
 
     setInput('');
     setSuggestions([]);
+    setShowSuggestions(false); // Ocultar sugerencias después de enviar
   };
 
   const getResponse = (question: string) => {
@@ -111,8 +113,10 @@ export default function Chatbot() {
       examples: [], 
       resources: [] 
     };
+
+    const allQuestions = [...qaPairs, ...basicQuestions];
   
-    for (const pair of qaPairs) {
+    for (const pair of allQuestions) {
       const matches = pair.keywords.filter(keyword => normalizedQuestion.includes(normalizeText(keyword))).length;
   
       if (matches > bestMatch.matches) {
@@ -121,7 +125,13 @@ export default function Chatbot() {
     }
   
     if (bestMatch.matches > 0) {
-      return formatResponse(bestMatch);
+      if (qaPairs.some(pair => pair.question === bestMatch.question)) {
+        setSuggestions(bestMatch.relatedQuestions || qaPairs.map(pair => pair.question));
+        return formatResponse(bestMatch);
+      } else {
+        setSuggestions(qaPairs.map(pair => pair.question));
+        return bestMatch.answer;
+      }
     } else {
       const filteredSuggestions = qaPairs
         .filter(pair => pair.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword))))
@@ -171,6 +181,7 @@ export default function Chatbot() {
   const handleSuggestionClick = (suggestion: string) => {
     setInput('');
     setSuggestions([]);
+    setShowSuggestions(false); // Ocultar sugerencias después de seleccionar una
     setMessages((prev: Message[]) => [...prev, { text: suggestion, isBot: false }]);
     const response = getResponse(suggestion);
 
@@ -180,7 +191,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="flex flex-col h-[600px] w-full max-w-md mx-auto border border-gray-200 rounded-lg overflow-hidden shadow-lg bg-white">
+    <div className="flex flex-col h-[600px] w-full max-w-md mx-auto border border-gray-200 rounded-lg overflow-hidden shadow-lg bg-white relative">
       <div className="bg-blue-600 text-white p-4">
         <h2 className="text-xl font-bold text-center">Chatbot Servicio Civil</h2>
       </div>
@@ -200,38 +211,42 @@ export default function Chatbot() {
             />
           </div>
         ))}
-        {suggestions.length > 0 && (
-          <div className="p-4 bg-gray-50 border-t">
-            <p className="font-semibold">Sugerencias:</p>
-            <ul>
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  className="text-blue-600 cursor-pointer hover:underline mt-2"
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
         <div ref={messagesEndRef} />
       </ScrollArea>
+      {showSuggestions && suggestions.length > 0 && (
+        <div className="p-4 bg-gray-50 border-t absolute bottom-16 left-0 w-full max-h-[150px] overflow-y-auto">
+          <p className="font-semibold">Sugerencias:</p>
+          <ul>
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                className="text-blue-600 cursor-pointer hover:underline mt-2"
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200 flex items-center space-x-3">
         <div className="flex-grow">
           <Input
             value={input}
             onChange={(e) => {
-              setInput(e.target.value);
-              if (e.target.value.trim().split(" ").length === 1) {
-                const normalizedInput = normalizeText(e.target.value);
+              const currentValue = e.target.value;
+              setInput(currentValue);
+
+              if (currentValue.trim() === '') {
+                setSuggestions([]);
+                setShowSuggestions(false);
+              } else {
+                const normalizedInput = normalizeText(currentValue);
                 const filteredSuggestions = qaPairs
-                  .filter(pair => pair.keywords.some(keyword => normalizeText(keyword).includes(normalizedInput)))
+                  .filter(pair => normalizeText(pair.question).includes(normalizedInput))
                   .map(pair => pair.question);
                 setSuggestions(filteredSuggestions);
-              } else {
-                setSuggestions([]);
+                setShowSuggestions(true); // Mostrar sugerencias solo cuando el usuario escribe
               }
             }}
             placeholder="Escribe tu pregunta aquí..."
