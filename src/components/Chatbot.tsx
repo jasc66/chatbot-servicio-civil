@@ -27,7 +27,8 @@ type Message = {
 const Button = ({ onClick, children }: { onClick: () => void; children: React.ReactNode }) => (
   <button
     onClick={onClick}
-    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center"
+    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center justify-center"
+    style={{ minWidth: '48px' }} // Asegura un ancho mínimo en dispositivos pequeños
   >
     {children}
   </button>
@@ -39,12 +40,12 @@ const Input = ({ value, onChange, placeholder }: { value: string; onChange: (e: 
     value={value}
     onChange={onChange}
     placeholder={placeholder}
-    className="flex-grow p-2 border rounded-l text-black"
+    className="w-full p-2 border rounded-l text-black text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
   />
 );
 
 const ScrollArea = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex-grow overflow-y-auto p-4 bg-gray-100 rounded shadow" style={{ maxHeight: '400px' }}>
+  <div className="flex-grow overflow-y-auto p-2 bg-gray-100 rounded shadow" style={{ maxHeight: 'calc(60vh)' }}>
     {children}
   </div>
 );
