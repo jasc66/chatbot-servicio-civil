@@ -2,7 +2,7 @@
 
 import { qaPairs, basicQuestions } from '@/data/question'
 import sitemapKeywords from '@/data/sitemapKeywords'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -40,7 +40,6 @@ export default function Chatbot() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const allQuestions = useMemo(() => [...qaPairs, ...basicQuestions], [])
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -83,12 +82,14 @@ export default function Chatbot() {
 
   const getResponse = (question: string) => {
     const normalizedQuestion = normalizeText(question)
-  
+
+    // Check if the question matches any sitemapKeywords
     const matchedSitemap = sitemapKeywords.find(item => 
       item.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword)))
     )
-  
+
     if (matchedSitemap) {
+      setSuggestions(qaPairs.map(q => q.question).slice(0, 5)) // Sugerir solo preguntas de qaPairs
       return `
         <p>Para más información sobre este tema, puedes visitar:</p>
         <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-4 rounded">
@@ -98,31 +99,41 @@ export default function Chatbot() {
         </div>
       `
     }
-  
+
+    // Check if the question matches any basicQuestions
+    const matchedBasic = basicQuestions.find(item => 
+      item.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword)))
+    )
+
+    if (matchedBasic) {
+      setSuggestions(qaPairs.map(q => q.question).slice(0, 5)) // Sugerir solo preguntas de qaPairs
+      return matchedBasic.answer
+    }
+
+    // Use fuzzy matching for qaPairs for a more relevant response
     const bestMatch = qaPairs.reduce((best, current) => {
       const currentScore = current.keywords.reduce((score, keyword) => {
         return normalizedQuestion.includes(normalizeText(keyword)) ? score + 1 : score
       }, 0)
       return currentScore > best.score ? { data: current, score: currentScore } : best
     }, { data: null as QuestionData | null, score: 0 })
-  
+
     if (bestMatch.data && bestMatch.score > 0) {
       setSuggestions(bestMatch.data.relatedQuestions || qaPairs.map(q => q.question).slice(0, 5))
       return formatResponse(bestMatch.data)
     }
-  
+
+    // If no match is found, suggest based on qaPairs only
     const filteredSuggestions = qaPairs
       .filter(pair => pair.keywords.some(keyword => normalizedQuestion.includes(normalizeText(keyword))))
       .map(pair => pair.question)
       .slice(0, 5)
-  
+
     setSuggestions(filteredSuggestions)
-    setShowSuggestions(true)  // Mostrar sugerencias solo si hay coincidencias
     return filteredSuggestions.length > 0
       ? `No encontré una respuesta exacta, pero quizás estas preguntas te puedan ayudar:`
       : `Lo siento, no pude encontrar una respuesta a tu pregunta. ¿Podrías reformularla o ser más específico?`
   }
-  
 
   const formatResponse = (match: QuestionData) => {
     let response = `<p>${match.answer}</p>`
@@ -236,7 +247,7 @@ export default function Chatbot() {
                 setShowSuggestions(false)
               } else {
                 const normalizedInput = normalizeText(currentValue)
-                const filteredSuggestions = allQuestions
+                const filteredSuggestions = qaPairs
                   .filter(pair => normalizeText(pair.question).includes(normalizedInput))
                   .map(pair => pair.question)
                   .slice(0, 5)
