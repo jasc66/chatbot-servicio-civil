@@ -1,13 +1,7 @@
-// next.config.js
+import type { NextConfig } from "next";
 
-/**
- * @type {import('next').NextConfig}
- **/
-const nextConfig = {
-  env: {
-    NEXT_PUBLIC_AI21_API_KEY: process.env.NEXT_PUBLIC_AI21_API_KEY,
-  },
-  /* Agrega otras opciones de configuración aquí, si es necesario */
+const nextConfig: NextConfig = {
+  /* config options here */
 };
 
-module.exports = nextConfig;
+export default nextConfig;
