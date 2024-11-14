@@ -61,6 +61,29 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
+:root.high-contrast {
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #333333;
+  --popover-foreground: #ffffff;
+  --primary: #00ff00; /* Verde brillante para botones primarios */
+  --primary-foreground: #000000;
+  --secondary: #ff00ff; /* Magenta para resaltar preguntas del usuario */
+  --secondary-foreground: #ffffff;
+  --muted: #666666;
+  --muted-foreground: #ffffff;
+  --accent: #00ffff; /* Cyan para sugerencias y respuestas del bot */
+  --accent-foreground: #000000;
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
+  --border: #ffffff;
+  --input: #ffffff;
+  --ring: #ffff00; /* Amarillo brillante para resaltar bordes */
+}
+
+
 
 @layer base {
   * {
@@ -69,4 +92,19 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+.text-small {
+  font-size: 0.875rem; /* Ajuste para fuente pequeña */
+}
+.text-medium {
+  font-size: 1rem; /* Tamaño de fuente estándar */
+}
+.text-large {
+  font-size: 1.125rem; /* Ajuste para fuente grande */
+}
+:root.high-contrast .card, 
+:root.high-contrast .button, 
+:root.high-contrast .input {
+  border: 2px solid var(--border);
+  box-shadow: 0 0 5px var(--ring);
 }
