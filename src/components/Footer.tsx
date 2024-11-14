@@ -1,12 +1,13 @@
 // Footer.tsx
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
     <footer className="text-gray-600 body-font bg-gray-900">
       <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-        <a href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-white">
+        <Link href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-white">
           <Image
             src="/logo_design_jasc.webp"
             alt="Chatbot Servicio Civil Logo"
@@ -15,7 +16,7 @@ const Footer: React.FC = () => {
             className="w-10 h-10 p-2 bg-indigo-500 rounded-full"
           />
           <span className="ml-3 text-xl">Chatbot Servicio Civil</span>
-        </a>
+        </Link>
         <p className="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-700 sm:py-2 sm:mt-0 mt-4">
           © 2024 Chatbot App —
           <a
