@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { Send, Bot, User, Settings } from "lucide-react";
 import AccessibilitySettings from "./accesibilidad/AccessibilitySettings";
 
@@ -298,33 +298,7 @@ export default function Chatbot() {
       );
     }
   };
-  function sanitizeHTML(html: string) {
-    // Remueve cualquier etiqueta o atributo que no sea seguro
-    // En este caso, se permite solo <p>, <a>, <ul>, <li>, etc.
-    const div = document.createElement("div");
-    div.innerHTML = html;
-  
-    // Elimina scripts o elementos inseguros
-    const scripts = div.getElementsByTagName("script");
-    const iframes = div.getElementsByTagName("iframe");
-    const embeds = div.getElementsByTagName("embed");
-  
-    // Remueve cada uno de estos elementos inseguros
-    Array.from(scripts).forEach((script) => script.remove());
-    Array.from(iframes).forEach((iframe) => iframe.remove());
-    Array.from(embeds).forEach((embed) => embed.remove());
-  
-    // Retorna el HTML seguro como string
-    return div.innerHTML;
-  }
-  
-  function MessageText({ text }: { text: string }) {
-    // Sanitiza el HTML antes de usarlo con `dangerouslySetInnerHTML`
-    const safeHTML = sanitizeHTML(text);
-  
-    return <div dangerouslySetInnerHTML={{ __html: safeHTML }} />;
-  }
-  
+
   return (
     <div
   className={`relative bg-background text-foreground ${

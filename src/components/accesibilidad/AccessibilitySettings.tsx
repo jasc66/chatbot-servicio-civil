@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Contrast, Volume, Sun, X } from 'lucide-react';
+import { Sun, X } from 'lucide-react';
 
 type AccessibilitySettingsProps = {
   onSettingsChange: (settings: { contrast?: boolean; fontSize?: 'small' | 'medium' | 'large'; textToSpeech?: boolean }) => void;
