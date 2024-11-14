@@ -342,7 +342,153 @@ export const qaPairs = [
             { label: "Solicitud de Boleta de Funcionalidad", url: "https://www.dgsc.go.cr/solicitud_boleta.html" }
         ]
     },
-    
+    {
+        "question": "¿Qué es el Régimen de Servicio Civil?",
+        "keywords": ["qué", "es", "régimen", "servicio civil", "definición", "significado"],
+        "answer": "El Régimen de Servicio Civil es un sistema jurídico-administrativo creado para atraer y mantener en el servicio público al personal con mayores méritos. Está constituido por un conjunto de instituciones, personas, normas y principios filosóficos, doctrinarios y técnicos, establecidos para garantizar la eficiencia de la Administración Pública, proteger los derechos de sus servidores y conservar una relación ordenada y equitativa en la administración del empleo público.",
+        "category": "Definición",
+        "relatedQuestions": [
+            "¿Cuáles son los objetivos del Régimen de Servicio Civil?",
+            "¿Qué principios rigen el Régimen de Servicio Civil?"
+        ],
+        "examples": [
+            "¿Qué significa Régimen de Servicio Civil?",
+            "¿Cuál es la definición de Régimen de Servicio Civil?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Acerca del Régimen del Servicio Civil",
+                "url": "https://www.dgsc.go.cr/servicioCivil_acercade.html"
+            }
+        ]
+    },
+    {
+        "question": "¿Cuál es la importancia del Régimen de Servicio Civil en Costa Rica?",
+        "keywords": ["importancia", "régimen", "servicio civil", "Costa Rica", "relevancia"],
+        "answer": "El Régimen de Servicio Civil es fundamental para el fortalecimiento de la democracia y la institucionalidad en Costa Rica. Ha contribuido a una Administración Pública ordenada y equilibrada, aplicando técnicas y políticas uniformes en la gestión de personal. Esto ha permitido erradicar la arbitrariedad y el favoritismo en el manejo del personal estatal, promoviendo la igualdad de oportunidades y reconociendo la capacidad y méritos de los servidores públicos.",
+        "category": "Importancia",
+        "relatedQuestions": [
+            "¿Cómo ha influido el Régimen de Servicio Civil en la Administración Pública costarricense?",
+            "¿Qué beneficios aporta el Régimen de Servicio Civil al Estado?"
+        ],
+        "examples": [
+            "¿Por qué es importante el Régimen de Servicio Civil?",
+            "¿Qué relevancia tiene el Régimen de Servicio Civil en la función pública?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Importancia del Régimen de Servicio Civil",
+                "url": "https://www.dgsc.go.cr/servicioCivil_importancia.html"
+            }
+        ]
+    },
+    {
+        "question": "¿Cuál es el fundamento jurídico del Régimen de Servicio Civil?",
+        "keywords": ["fundamento", "jurídico", "régimen", "servicio civil", "base legal"],
+        "answer": "El Régimen de Servicio Civil se fundamenta en los artículos 191 y 192 de la Constitución Política de Costa Rica. El artículo 191 establece que un estatuto de servicio civil regulará las relaciones entre el Estado y los servidores públicos, con el propósito de garantizar la eficiencia de la Administración. El artículo 192 indica que, con las excepciones que la Constitución y el estatuto de servicio civil determinen, los servidores públicos serán nombrados a base de idoneidad comprobada y solo podrán ser removidos por causales de despido justificado.",
+        "category": "Fundamento Jurídico",
+        "relatedQuestions": [
+            "¿Qué leyes regulan el Régimen de Servicio Civil?",
+            "¿Dónde se establece la base legal del Servicio Civil en Costa Rica?"
+        ],
+        "examples": [
+            "¿Cuál es la base legal del Régimen de Servicio Civil?",
+            "¿En qué artículos de la Constitución se fundamenta el Servicio Civil?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Fundamento jurídico del Régimen de Servicio Civil",
+                "url": "https://www.dgsc.go.cr/servicioCivil_fundamentoJuridico.html"
+            }
+        ]
+    },
+    {
+        "question": "¿Qué instituciones están cubiertas por el Régimen de Servicio Civil?",
+        "keywords": ["instituciones", "cubiertas", "régimen", "servicio civil", "cobertura"],
+        "answer": "El Régimen de Servicio Civil abarca a los distintos ministerios del Poder Ejecutivo, a sus organismos adscritos y al Instituto Nacional de Aprendizaje. Están excluidas instituciones como el Sistema Bancario Nacional, el Poder Judicial, el Tribunal Supremo de Elecciones, las Universidades, las Municipalidades y las instituciones autónomas o semiautónomas.",
+        "category": "Cobertura",
+        "relatedQuestions": [
+            "¿Qué entidades forman parte del Régimen de Servicio Civil?",
+            "¿Qué organismos están excluidos del Régimen de Servicio Civil?"
+        ],
+        "examples": [
+            "¿Qué instituciones están incluidas en el Régimen de Servicio Civil?",
+            "¿Cuáles entidades no están cubiertas por el Servicio Civil?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Cobertura del Régimen de Servicio Civil",
+                "url": "https://www.dgsc.go.cr/servicioCivil_cobertura.html"
+            }
+        ]
+    },
+    {
+        "question": "¿Cómo está organizada la Dirección General de Servicio Civil?",
+        "keywords": ["organización", "dirección general", "servicio civil", "estructura"],
+        "answer": "La Dirección General de Servicio Civil es la institución rectora encargada de dirigir y administrar la aplicación del Estatuto de Servicio Civil en las diferentes instituciones del Régimen. Cuenta con instancias como el Sistema de Gestión de Recursos Humanos (SIGEREH), que incluye las Oficinas de Gestión Institucional de Recursos Humanos (OGEREH), la Asamblea de Jefes de Gestión de Recursos Humanos y el Consejo Técnico Consultivo de Gestión de Recursos Humanos. Además, integra el Subsistema de Capacitación y Desarrollo del Régimen de Servicio Civil (SUCADES) y los Tribunales de Servicio Civil y de Carrera Docente.",
+        "category": "Organización",
+        "relatedQuestions": [
+            "¿Qué departamentos conforman la Dirección General de Servicio Civil?",
+            "¿Qué funciones tiene el SIGEREH dentro del Servicio Civil?"
+        ],
+        "examples": [
+            "¿Cómo se estructura la Dirección General de Servicio Civil?",
+            "¿Qué componentes integran la organización del Servicio Civil?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Organización del Régimen de Servicio Civil",
+                "url": "https://www.dgsc.go.cr/servicioCivil_organizacion.html"
+            }
+        ]
+    },
+    {
+        "question": "¿Cuáles son los trámites disponibles en la Dirección General de Servicio Civil?",
+        "keywords": ["trámites", "disponibles", "dirección general", "servicio civil", "opciones"],
+        "answer": "La Dirección General de Servicio Civil ofrece diversos trámites, incluyendo reprogramación de pruebas, reconocimiento de puntos adicionales por carreras acreditadas, devolución de resultados de pruebas, solicitudes de exclusión y re inclusión en el Registro de Elegibles, cambios de correo, modificación de oferta de servicios en la carrera docente, certificaciones salariales, y denuncias sobre irregularidades de oficinas.",
+        "category": "Trámites",
+        "relatedQuestions": [
+            "¿Cómo solicitar una reprogramación de pruebas?",
+            "¿Qué trámites están disponibles en el Servicio Civil?"
+        ],
+        "examples": [
+            "¿Qué trámites puedo realizar en el Servicio Civil?",
+            "¿Cuáles son los servicios de la DGSC?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Trámites y Servicios en la DGSC",
+                "url": "https://www.dgsc.go.cr/tramitesServicios.html"
+            }
+        ]
+    },
+    {
+        "question": "¿Cuáles son los servicios que brinda la Dirección General de Servicio Civil?",
+        "keywords": ["servicios", "brinda", "dirección general", "servicio civil", "ofrecidos"],
+        "answer": "La Dirección General de Servicio Civil proporciona servicios para el Régimen de Servicio Civil, como concursos internos, guías de mantenimiento de manual descriptivo de especialidades, formularios de modificación de especialidades, y declaraciones de atinencias académicas.",
+        "category": "Servicios",
+        "relatedQuestions": [
+            "¿Qué servicios se ofrecen en el Régimen de Servicio Civil?",
+            "¿Dónde puedo ver los servicios de la DGSC?"
+        ],
+        "examples": [
+            "¿Cuáles son los servicios de la DGSC?",
+            "¿Qué servicios están disponibles en la Dirección General de Servicio Civil?"
+        ],
+        "tone": "formal",
+        "resources": [
+            {
+                "label": "Trámites y Servicios en la DGSC",
+                "url": "https://www.dgsc.go.cr/tramitesServicios.html"
+            }
+        ]
+    }
 ];
 
 export const basicQuestions = [
