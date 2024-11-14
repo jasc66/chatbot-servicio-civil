@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="text-gray-600 body-font bg-gray-900">
+    <footer className="text-gray-400 body-font bg-primary">
       <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
         <Link href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-white">
           <Image
@@ -13,9 +13,9 @@ const Footer: React.FC = () => {
             alt="Chatbot Servicio Civil Logo"
             width={40}
             height={40}
-            className="w-10 h-10 p-2 bg-indigo-500 rounded-full"
+            className="w-10 h-10 p-2 bg-primary rounded-full"
           />
-          <span className="ml-3 text-xl">Chatbot Servicio Civil</span>
+          <span className="ml-3 text-xl text-gray-400">Chatbot Servicio Civil</span>
         </Link>
         <p className="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-700 sm:py-2 sm:mt-0 mt-4">
           © 2024 Chatbot App —
