@@ -113,5 +113,49 @@ export const qaPairsContact = [
             phone: "(506) 2296-9570",
             email: "cidseci@dgsc.go.cr"
         }
+    },
+    {
+        question: "¿Cuál es el horario de la DGSC?",
+        keywords: ['horario', 'atención', 'apertura', 'cierre'],
+        answer: 'La Dirección General del Servicio Civil (DGSC) atiende al público de lunes a viernes, de 7:30 AM a 3:30 PM.',
+        category: 'Horario',
+        relatedQuestions: [
+            "¿Cuáles son los horarios de atención de la DGSC?",
+            "¿A qué hora abre la DGSC?"
+        ],
+        examples: [
+            "¿A qué hora cierran?",
+            "¿Cuál es el horario de atención al público?"
+        ],
+        tone: 'formal',
+        resources: [],
+        additionalInfo: {
+            officeHours: "Lunes a Viernes, 7:30 AM a 3:30 PM",
+            contactPerson: "Departamento de Recursos Humanos",
+            phone: "(506) 2586-8305",
+            email: "rrhh@dgsc.go.cr"
+        }
+    },
+    {
+        question: "¿Cómo contactar al Departamento de Recursos Humanos?",
+        keywords: ['contacto', 'recursos humanos', 'RRHH', 'personal', 'teléfono', 'correo'],
+        answer: 'Puede contactar al Departamento de Recursos Humanos de la DGSC para consultas relacionadas con el personal y gestiones administrativas.',
+        category: 'Contacto',
+        relatedQuestions: [
+            "¿Cómo puedo hablar con Recursos Humanos?",
+            "¿Cuál es el correo de Recursos Humanos?"
+        ],
+        examples: [
+            "¿Teléfono de Recursos Humanos?",
+            "¿Dónde enviar una consulta sobre personal?"
+        ],
+        tone: 'formal',
+        resources: [],
+        additionalInfo: {
+            contactPerson: "Departamento de Recursos Humanos",
+            phone: "(506) 2586-8305",
+            email: "rrhh@dgsc.go.cr"
+        }
     }
+        
 ];
