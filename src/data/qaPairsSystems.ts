@@ -89,5 +89,5 @@ export const qaPairsSystems = [
         resources: [
             { label: "Información Salarial", url: "https://www.dgsc.go.cr/informacion_salarial.html" }
         ]
-    }
+    },
 ];

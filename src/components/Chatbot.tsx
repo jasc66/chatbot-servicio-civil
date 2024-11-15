@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { qaPairs, basicQuestions } from "@/data/question";
 import { qaPairsSystems } from "@/data/qaPairsSystems";
+import { qaPairsContact } from "@/data/qaPairsContact"; // Importa el nuevo arreglo
 import sitemapKeywords from "@/data/sitemapKeywords";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,12 @@ type QuestionData = {
   examples?: string[];
   tone?: string;
   resources?: Resource[];
+  additionalInfo?: {
+    contactPerson?: string;
+    phone?: string;
+    email?: string;
+    hours?: string;
+  };
 };
 
 type Message = {
@@ -104,6 +111,42 @@ export default function Chatbot() {
   const getResponse = (question: string) => {
     const normalizedQuestion = normalizeText(question);
 
+    // Prioridad alta: Búsqueda en qaPairsContact
+    const bestMatchContact = qaPairsContact.reduce(
+      (best, current) => {
+        const currentScore = current.keywords.reduce((score, keyword) => {
+          return normalizedQuestion.includes(normalizeText(keyword)) ? score + 1 : score;
+        }, 0);
+        return currentScore > best.score
+          ? { data: current, score: currentScore }
+          : best;
+      },
+      { data: null as QuestionData | null, score: 0 }
+    );
+
+    if (bestMatchContact.data && bestMatchContact.score > 0) {
+      setSuggestions(
+        bestMatchContact.data.relatedQuestions ||
+        [...qaPairs, ...qaPairsSystems, ...qaPairsContact].map((q) => q.question).slice(0, 5)
+      );
+      return formatResponse(bestMatchContact.data);
+    }
+
+    // Búsqueda en basicQuestions
+    const matchedBasic = basicQuestions.find((item) =>
+      item.keywords.some((keyword) =>
+        normalizedQuestion.includes(normalizeText(keyword))
+      )
+    );
+
+    if (matchedBasic) {
+      setSuggestions(
+        [...qaPairs, ...qaPairsSystems, ...qaPairsContact].map((q) => q.question).slice(0, 5)
+      );
+      return matchedBasic.answer;
+    }
+
+    // Búsqueda en sitemapKeywords
     const matchedSitemap = sitemapKeywords.find((item) =>
       item.keywords.some((keyword) =>
         normalizedQuestion.includes(normalizeText(keyword))
@@ -112,7 +155,7 @@ export default function Chatbot() {
 
     if (matchedSitemap) {
       setSuggestions(
-        [...qaPairs, ...qaPairsSystems].map((q) => q.question).slice(0, 5)
+        [...qaPairs, ...qaPairsSystems, ...qaPairsContact].map((q) => q.question).slice(0, 5)
       );
       return `
         <p>Para más información sobre este tema, puedes visitar:</p>
@@ -124,25 +167,11 @@ export default function Chatbot() {
       `;
     }
 
-    const matchedBasic = basicQuestions.find((item) =>
-      item.keywords.some((keyword) =>
-        normalizedQuestion.includes(normalizeText(keyword))
-      )
-    );
-
-    if (matchedBasic) {
-      setSuggestions(
-        [...qaPairs, ...qaPairsSystems].map((q) => q.question).slice(0, 5)
-      );
-      return matchedBasic.answer;
-    }
-
+    // Búsqueda en qaPairsSystems
     const bestMatchSystems = qaPairsSystems.reduce(
       (best, current) => {
         const currentScore = current.keywords.reduce((score, keyword) => {
-          return normalizedQuestion.includes(normalizeText(keyword))
-            ? score + 1
-            : score;
+          return normalizedQuestion.includes(normalizeText(keyword)) ? score + 1 : score;
         }, 0);
         return currentScore > best.score
           ? { data: current, score: currentScore }
@@ -154,17 +183,16 @@ export default function Chatbot() {
     if (bestMatchSystems.data && bestMatchSystems.score > 0) {
       setSuggestions(
         bestMatchSystems.data.relatedQuestions ||
-          [...qaPairs, ...qaPairsSystems].map((q) => q.question).slice(0, 5)
+        [...qaPairs, ...qaPairsSystems, ...qaPairsContact].map((q) => q.question).slice(0, 5)
       );
       return formatResponse(bestMatchSystems.data);
     }
 
+    // Búsqueda en qaPairs
     const bestMatchGeneral = qaPairs.reduce(
       (best, current) => {
         const currentScore = current.keywords.reduce((score, keyword) => {
-          return normalizedQuestion.includes(normalizeText(keyword))
-            ? score + 1
-            : score;
+          return normalizedQuestion.includes(normalizeText(keyword)) ? score + 1 : score;
         }, 0);
         return currentScore > best.score
           ? { data: current, score: currentScore }
@@ -176,12 +204,13 @@ export default function Chatbot() {
     if (bestMatchGeneral.data && bestMatchGeneral.score > 0) {
       setSuggestions(
         bestMatchGeneral.data.relatedQuestions ||
-          [...qaPairs, ...qaPairsSystems].map((q) => q.question).slice(0, 5)
+        [...qaPairs, ...qaPairsSystems, ...qaPairsContact].map((q) => q.question).slice(0, 5)
       );
       return formatResponse(bestMatchGeneral.data);
     }
 
-    const filteredSuggestions = [...qaPairs, ...qaPairsSystems]
+    // Sugerencias si no hay coincidencia exacta
+    const filteredSuggestions = [...qaPairs, ...qaPairsSystems, ...qaPairsContact]
       .filter((pair) =>
         pair.keywords.some((keyword) =>
           normalizedQuestion.includes(normalizeText(keyword))
@@ -238,6 +267,19 @@ export default function Chatbot() {
                   `<li><a href="${resource.url}" target="_blank" class="underline hover:text-purple-700">${resource.label}</a></li>`
               )
               .join("")}
+          </ul>
+        </div>`;
+    }
+
+    if (match.additionalInfo) {
+      response += `
+        <div class="bg-gray-100 text-gray-800 border-l-4 border-gray-500 p-4 mt-4 rounded">
+          <p class="font-semibold">Información de contacto adicional:</p>
+          <ul class="list-disc pl-5">
+            ${match.additionalInfo.contactPerson ? `<li><strong>Persona de contacto:</strong> ${match.additionalInfo.contactPerson}</li>` : ""}
+            ${match.additionalInfo.phone ? `<li><strong>Teléfono:</strong> ${match.additionalInfo.phone}</li>` : ""}
+            ${match.additionalInfo.email ? `<li><strong>Email:</strong> <a href="mailto:${match.additionalInfo.email}" class="underline hover:text-gray-700">${match.additionalInfo.email}</a></li>` : ""}
+            ${match.additionalInfo.hours ? `<li><strong>Horario:</strong> ${match.additionalInfo.hours}</li>` : ""}
           </ul>
         </div>`;
     }
@@ -407,7 +449,7 @@ export default function Chatbot() {
               setShowSuggestions(false);
             } else {
               const normalizedInput = normalizeText(currentValue);
-              const filteredSuggestions = [...qaPairs, ...qaPairsSystems]
+              const filteredSuggestions = [...qaPairs, ...qaPairsSystems, ...qaPairsContact]
                 .filter((pair) =>
                   normalizeText(pair.question).includes(normalizedInput)
                 )
