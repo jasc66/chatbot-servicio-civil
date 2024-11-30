@@ -18,8 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Message from "@/components/Message";
 import { Send, Settings } from "lucide-react";
 import AccessibilitySettings from "./accesibilidad/AccessibilitySettings";
-import {QuestionData, ChatMessage } from "@/types/chatbot";
-
+import { QuestionData, ChatMessage } from "@/types/chatbot";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -370,7 +369,7 @@ export default function Chatbot() {
             onClick={() =>
               setShowAccessibilitySettings(!showAccessibilitySettings)
             }
-            aria-label="Configuración de accesibilidad"
+            aria-label="Abrir configuración de accesibilidad"
           >
             <Settings className="h-4 w-4" />
           </Button>
@@ -443,9 +442,10 @@ export default function Chatbot() {
                 }
               }}
               placeholder="Escribe tu pregunta aquí..."
+              aria-label="Entrada de texto para preguntas"
               className="flex-grow text-xs sm:text-sm"
             />
-            <Button type="submit" className="p-2 sm:p-3">
+            <Button type="submit" className="p-2 sm:p-3" aria-label="Enviar mensaje">
               <Send className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="sr-only">Enviar</span>
             </Button>
