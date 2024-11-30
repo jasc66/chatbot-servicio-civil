@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { qaPairs, basicQuestions } from "@/data/question";
 import { qaPairsSystems } from "@/data/qaPairsSystems";
-import { qaPairsContact } from "@/data/qaPairsContact"; // Importa el nuevo arreglo
+import { qaPairsContact } from "@/data/qaPairsContact";
 import sitemapKeywords from "@/data/sitemapKeywords";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

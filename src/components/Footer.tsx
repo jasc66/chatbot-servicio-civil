@@ -6,14 +6,14 @@ import Link from 'next/link';
 const Footer: React.FC = () => {
   return (
     <footer className="text-gray-400 body-font bg-primary">
-      <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+      <div className="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col">
         <Link href="/" className="flex title-font font-medium items-center md:justify-start justify-center text-white">
           <Image
             src="/logo_design_jasc.webp"
             alt="Chatbot Servicio Civil Logo"
             width={40}
             height={40}
-            className="w-10 h-10 p-2 bg-primary rounded-full"
+            className="w-2 h-2 p-2 bg-primary rounded-full"
           />
           <span className="ml-3 text-xl text-gray-400">Chatbot Servicio Civil</span>
         </Link>

@@ -108,3 +108,17 @@ body {
   border: 2px solid var(--border);
   box-shadow: 0 0 5px var(--ring);
 }
+@layer utilities {
+  .animate-carousel {
+    animation: carousel 20s linear infinite;
+  }
+
+  @keyframes carousel {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
